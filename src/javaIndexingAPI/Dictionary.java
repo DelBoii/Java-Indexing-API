@@ -1,3 +1,5 @@
+//JavaIndexingAPI - A program which parses a book and displays the page numbers that word is on and its definition, if any.
+//Ryan Gordon - G00326349 - ryangordon210@gmail.com
 package javaIndexingAPI;
 
 import java.io.BufferedReader;
@@ -35,10 +37,8 @@ public class Dictionary {
 					word = wordMap.get(theWord);
 					word.setWord(next[0]);
 					word.setWordType(next[1]);
-					word.setDefinition(next[2]);
-					//wordMap.put(theWord, word); //Also add the word to the hash map
-
-					//System.out.println("Hello");
+					String formattetStr = next[2] + "\n\n";
+					word.setDefinition(formattetStr);
 				}
 			}
 			double searchTime = ((System.currentTimeMillis() - start)/1000);
@@ -54,9 +54,6 @@ public class Dictionary {
 		return wordList.size();
 	}
 	
-	public WordDetail[] getSortedWords(){
-		return (WordDetail[]) wordList.toArray(new WordDetail[wordList.size()]);
-	}
 	
 	public Map<StrangeString, WordDetail> getWordMap(){
 		return wordMap;

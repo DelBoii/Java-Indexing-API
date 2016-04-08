@@ -1,3 +1,5 @@
+//JavaIndexingAPI - A program which parses a book and displays the page numbers that word is on and its definition, if any.
+//Ryan Gordon - G00326349 - ryangordon210@gmail.com
 package javaIndexingAPI;
 
 import java.io.BufferedReader;
@@ -8,9 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JOptionPane;
 
 public class Book {
 	private List<String> ignoreWords = new ArrayList<String>(); //Instance variable of type List (an interface)
@@ -64,30 +63,29 @@ public class Book {
 				
 				for(int i = 0; i < words.length; i++) // 4
 				{
-					if(ignoreWords.contains(words[i])){
-						continue;
+					if(ignoreWords.contains(words[i])){//Arraylist must loop through its list to try and find the word. 
+						continue;					   //This is a Log(n) operation
 					}
 					
 					//when putting key in make word lowercase for hashcode, actual word stored in word detail
 					StrangeString theWord= new StrangeString(words[i].toLowerCase());
-					if(wordMap.containsKey(theWord)) // 6
+					if(wordMap.containsKey(theWord)) //Check if the word is already in the map. O(1) operation
 					{
 						WordDetail wd = wordMap.get(theWord);  // 7
-						wd.addIndex(page);	
+						wd.addIndex(page); //Adds the page number to the indices TreeSet. Does not store duplicates
 					}
 					else
 					{
 						WordDetail wd = new WordDetail(); // 8
-						wd.addIndex(page);
+						wd.setWord(words[i]);
+						wd.addIndex(page);//Adds the page number to the indices TreeSet. Does not store duplicates	
 						
-						
-						//Set<String> wordDefinition = wd.getDefinition();
-						
-								if(wd.getDefinition() == null) // 10
+						/*
+								if(wd.getDefinition().isEmpty()) // 10
 								{
-									String definition = "No Definition in dictionary";
+									String definition = "No Definition in dictionary";//Sets a sentinel definition as none available in dictionary
 									wd.setDefinition(definition);
-								}
+								}*/
 								wordMap.put(theWord, wd);
 					}//end else
 				}
@@ -98,7 +96,7 @@ public class Book {
 		}catch (Exception e) {
 			throw new Exception("[ERROR] Encountered a problem reading the book. " + e.getMessage());		
 		}
-	}
+	}//Helvetii
 	public Map<StrangeString, WordDetail> getWordMap(){
 		return wordMap;
 	}
