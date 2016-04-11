@@ -10,8 +10,8 @@ public class WordSearch{
 		
 		Dictionary dictionary = new Dictionary(); //Instantiate the dictionary
 		Book book = new Book();
-		String PARSE_FILE = "sample-text-file/DeBelloGallico.txt"; //A string instance variable
-		System.out.println("Enter the path for your text file the default file is :sample-text-file/DeBelloGallico.txt");
+		String PARSE_FILE = "text-files/DeBelloGallico.txt"; //A string instance variable
+		System.out.println("Enter the path for your text file the default file paths are :\ntext-files/DeBelloGallico.txt\ntext-files/WarAndPeace-LeoTolstoy.txt\ntext-files/PoblachtNaHEireann.txt");
 		Scanner sc = new Scanner(System.in);
 		PARSE_FILE = sc.nextLine();
 		double start = System.currentTimeMillis();

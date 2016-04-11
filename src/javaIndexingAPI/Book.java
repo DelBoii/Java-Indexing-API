@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class Book {
+public class Book implements IndexingAPI{
 	private List<String> ignoreWords = new ArrayList<String>(); //Instance variable of type List (an interface)
 	private Map<StrangeString, WordDetail> wordMap = new HashMap<StrangeString, WordDetail>(); //Instance variable of type Map (also an interface...)
 	int lineCounter,pageNum=1;
-	private final String IGNORE_FILE = "sample-text-file/stopwords.txt"; //A string instance variable
+	private final String IGNORE_FILE = "text-files/stopwords.txt"; //A string instance variable
 	
 	public void ignoreList() throws Exception{
 		try{
@@ -97,6 +98,30 @@ public class Book {
 			throw new Exception("[ERROR] Encountered a problem reading the book. " + e.getMessage());		
 		}
 	}//Helvetii is a good search term for the default text file.
+	//a method which is used in the interface. A user of the jar file may call this method passing in a text file and searchTerm.
+	//@params parse_file , string to search
+	//@returns a Set of page numbers the word is featured
+	public Set<Integer> getPageNumbers(String parse_file, String searchTerm){
+		WordDetail word= new WordDetail();
+		try {// we may not throw the exception when using interface so using a try/catch
+		ignoreList();
+		parse(parse_file);
+		
+		Map<StrangeString, WordDetail> map = getWordMap(); //Get a hash map of the words
+		StrangeString ss = new StrangeString(searchTerm.toLowerCase()); //Wrap the search string in a wrapper object
+		if (map.containsKey(ss)){ //Check if key exists in hash table. This is an O(1) operation
+			 word = map.get(ss); //Get the values associated with the key in the hash table. Also O(1) 
+		}else{
+			System.out.println(searchTerm + " is not in the dictionary"); //Word is not in the hash table
+		}
+		}//end try
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return word.getPages();
+	}
 	
 	
 	public Map<StrangeString, WordDetail> getWordMap(){
