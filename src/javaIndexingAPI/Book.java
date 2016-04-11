@@ -14,7 +14,7 @@ import java.util.Map;
 public class Book {
 	private List<String> ignoreWords = new ArrayList<String>(); //Instance variable of type List (an interface)
 	private Map<StrangeString, WordDetail> wordMap = new HashMap<StrangeString, WordDetail>(); //Instance variable of type Map (also an interface...)
-	int lineCounter,page=1;
+	int lineCounter,pageNum=1;
 	private final String IGNORE_FILE = "sample-text-file/stopwords.txt"; //A string instance variable
 	
 	public void ignoreList() throws Exception{
@@ -57,28 +57,28 @@ public class Book {
 				
 				if(lineCounter %40 == 0)
 				{
-					page++;
+					pageNum++;
 				}
-				String[] words = next.split(" ");
+				String[] inputWords = next.split(" ");
 				
-				for(int i = 0; i < words.length; i++) // 4
+				for(int i = 0; i < inputWords.length; i++) // 4
 				{
-					if(ignoreWords.contains(words[i])){//Arraylist must loop through its list to try and find the word. 
+					if(ignoreWords.contains(inputWords[i])){//Arraylist must loop through its list to try and find the word. 
 						continue;					   //This is a Log(n) operation
 					}
 					
 					//when putting key in make word lowercase for hashcode, actual word stored in word detail
-					StrangeString theWord= new StrangeString(words[i].toLowerCase());
+					StrangeString theWord= new StrangeString(inputWords[i].toLowerCase());
 					if(wordMap.containsKey(theWord)) //Check if the word is already in the map. O(1) operation
 					{
 						WordDetail wd = wordMap.get(theWord);  // 7
-						wd.addIndex(page); //Adds the page number to the indices TreeSet. Does not store duplicates
+						wd.addIndex(pageNum); //Adds the page number to the indices TreeSet. Does not store duplicates
 					}
 					else
 					{
 						WordDetail wd = new WordDetail(); // 8
-						wd.setWord(words[i]);
-						wd.addIndex(page);//Adds the page number to the indices TreeSet. Does not store duplicates	
+						wd.setWord(inputWords[i]);
+						wd.addIndex(pageNum);//Adds the page number to the indices TreeSet. Does not store duplicates	
 						
 						/*
 								if(wd.getDefinition().isEmpty()) // 10
@@ -96,7 +96,9 @@ public class Book {
 		}catch (Exception e) {
 			throw new Exception("[ERROR] Encountered a problem reading the book. " + e.getMessage());		
 		}
-	}//Helvetii
+	}//Helvetii is a good search term for the default text file.
+	
+	
 	public Map<StrangeString, WordDetail> getWordMap(){
 		return wordMap;
 	}

@@ -2,11 +2,7 @@
 //Ryan Gordon - G00326349 - ryangordon210@gmail.com
 package javaIndexingAPI;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.*;
 
 import com.opencsv.CSVReader;
@@ -23,11 +19,7 @@ public class Dictionary {
 	public void load(Book book) throws Exception{ //If anything goes wrong, throw the exception to the calling method. Very lazy indeed!
 		try {
 			wordMap = book.getWordMap();
-			CSVReader reader = new CSVReader(new FileReader(DICTIONARY_FILE));
-			//FileInputStream fstream = new FileInputStream(DICTIONARY_FILE); //Wrap the file name in an input stream
-			//DataInputStream in = new DataInputStream(reader); //Allows us to read primitive data types (ints, chars, floats) from a stream
-			//BufferedReader br = new BufferedReader(new InputStreamReader(in)); //Buffers the data input stream
-			//String delimter = ",";
+			CSVReader reader = new CSVReader(new FileReader(DICTIONARY_FILE));//Opensource JAR implemented to read the dictionary csv file
 			String[] next;
 			double start = System.currentTimeMillis();
 			while ((next = reader.readNext()) != null) { //Loop through each line in the dictionary file

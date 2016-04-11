@@ -32,7 +32,7 @@ public class WordSearch{
 			System.out.println("Word :" + word.getWord() + "\nWord Type: "+word.getWordType()+"\nDefinition: "+word.getDefinition() ); //Print result
 			System.out.println("Pages :" +word.getPages()); //Print result
 			
-			JOptionPane.showMessageDialog(null, "Word :" + word.getWord() + "\nWord Type: "+word.getWordType()+"\nDefinition: "+word.getDefinition() );
+			//JOptionPane.showMessageDialog(null, "Word :" + word.getWord() + "\nWord Type: "+word.getWordType()+"\nDefinition: "+word.getDefinition() );
 		}else{
 			System.out.println(searchTerm + " is not in the dictionary"); //Word is not in the hash table
 		}
